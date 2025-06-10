@@ -22,7 +22,7 @@ public class AetherItemModelProvider extends ItemModelProvider {
 
     @Override
     public String getName() {
-        return "Flower Seeds 2" + MODID + " Item Model Provider";
+        return "Flower Seeds 2 " + MODID + " Item Model Provider";
     }
 
     @Override
@@ -35,12 +35,12 @@ public class AetherItemModelProvider extends ItemModelProvider {
 
     private void oneLayerItem(final Item item) {
         withExistingParent(BuiltInRegistries.ITEM.getKey(item.asItem()).getPath(), "item/generated")
-                .texture("layer0", new ResourceLocation("flowerseeds","item/seed"));
+                .texture("layer0", ResourceLocation.fromNamespaceAndPath("flowerseeds2","item/seed"));
     }
 
     private ItemModelBuilder simpleItem(DeferredHolder<?,?> item) {
         return withExistingParent(item.getId().getPath(),
-                new ResourceLocation("item/generated")).texture("layer0",
-                new ResourceLocation(MODID,"item/" + item.getId().getPath()));
+                ResourceLocation.parse("item/generated")).texture("layer0",
+                ResourceLocation.fromNamespaceAndPath(MODID,"item/" + item.getId().getPath()));
     }
 }

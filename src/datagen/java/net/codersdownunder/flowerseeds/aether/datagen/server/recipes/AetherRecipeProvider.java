@@ -2,17 +2,20 @@ package net.codersdownunder.flowerseeds.aether.datagen.server.recipes;
 
 import com.aetherteam.aether.block.AetherBlocks;
 import net.codersdownunder.flowerseeds.aether.FlowerSeedsAether;
-import net.codersdownunder.flowerseeds.data.FlowerSeedsRecipes;
+import net.codersdownunder.flowerseeds2.data.FlowerSeedsRecipes;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 
+import java.util.concurrent.CompletableFuture;
 
 public class AetherRecipeProvider extends FlowerSeedsRecipes implements IConditionBuilder {
 
-    public AetherRecipeProvider(PackOutput pOutput) {
-        super(pOutput);
+    public AetherRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+        super(output, provider);
     }
+
 
 //    @Override
 //    public String getName() {

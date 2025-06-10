@@ -2,7 +2,6 @@ package net.codersdownunder.flowerseeds.aether.datagen.client.models;
 
 import com.aetherteam.aether.block.AetherBlocks;
 import net.codersdownunder.flowerseeds.aether.FlowerSeedsAether;
-import net.codersdownunder.flowerseeds.data.FlowerSeedsBlockStates;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -10,7 +9,7 @@ import net.minecraft.world.level.block.CropBlock;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 
-public class AetherBlockStateProvider extends FlowerSeedsBlockStates {
+public class AetherBlockStateProvider extends net.codersdownunder.flowerseeds2.data.FlowerSeedsBlockStates {
     public AetherBlockStateProvider(PackOutput output, String MODID, ExistingFileHelper exFileHelper) {
         super(output, MODID, exFileHelper);
     }
@@ -35,32 +34,32 @@ public class AetherBlockStateProvider extends FlowerSeedsBlockStates {
                 .partialState()
                 .with(CropBlock.AGE, 0)
                 .modelForState()
-                .modelFile(stageCompat(new ResourceLocation("aether:block/natural/" + flower), 0, flower, modid))
+                .modelFile(stageCompat(ResourceLocation.parse("aether:block/natural/" + flower), 0, flower, modid))
                 .addModel()
                 .partialState()
                 .with(CropBlock.AGE, 1)
                 .modelForState()
-                .modelFile(stageCompat(new ResourceLocation("aether:block/natural/" + flower), 0, flower, modid))
+                .modelFile(stageCompat(ResourceLocation.parse("aether:block/natural/" + flower), 0, flower, modid))
                 .addModel()
                 .partialState()
                 .with(CropBlock.AGE, 2)
                 .modelForState()
-                .modelFile(stageCompat(new ResourceLocation("aether:block/natural/" + flower), 1, flower, modid))
+                .modelFile(stageCompat(ResourceLocation.parse("aether:block/natural/" + flower), 1, flower, modid))
                 .addModel()
                 .partialState()
                 .with(CropBlock.AGE, 3)
                 .modelForState()
-                .modelFile(stageCompat(new ResourceLocation("aether:block/natural/" + flower), 1, flower, modid))
+                .modelFile(stageCompat(ResourceLocation.parse("aether:block/natural/" + flower), 1, flower, modid))
                 .addModel()
                 .partialState()
                 .with(CropBlock.AGE, 4)
                 .modelForState()
-                .modelFile(stageCompat(new ResourceLocation("aether:block/natural/" + flower), 1, flower, modid))
+                .modelFile(stageCompat(ResourceLocation.parse("aether:block/natural/" + flower), 1, flower, modid))
                 .addModel()
                 .partialState()
                 .with(CropBlock.AGE, 5)
                 .modelForState()
-                .modelFile(stageCompat(new ResourceLocation("aether:block/natural/" + flower), 2, flower, modid))
+                .modelFile(stageCompat(ResourceLocation.parse("aether:block/natural/" + flower), 2, flower, modid))
                 .addModel()
                 .partialState()
                 .with(CropBlock.AGE, 6)

@@ -2,19 +2,14 @@ package net.codersdownunder.flowerseeds.aether;
 
 import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.codersdownunder.flowerseeds.blocks.CustomBurningCropBlock;
-import net.codersdownunder.flowerseeds.blocks.CustomCropBlock;
-import net.codersdownunder.flowerseeds.events.SeedColour;
-import net.codersdownunder.flowerseeds.events.VillagerTradesEventHandler;
-import net.codersdownunder.flowerseeds.init.CreativeTabInit;
-import net.minecraft.network.chat.Component;
+import net.codersdownunder.flowerseeds2.FlowerSeeds2;
+import net.codersdownunder.flowerseeds2.blocks.GenericFlowerCropBlock;
+import net.codersdownunder.flowerseeds2.events.VillagerTradesEventHandler;
+import net.codersdownunder.flowerseeds2.util.SeedColour;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -22,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
@@ -36,11 +32,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
-// The value here should match an entry in the META-INF/mods.toml file
+// The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(FlowerSeedsAether.MODID)
 public class FlowerSeedsAether {
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "flowerseedsaether";
+    public static final String MODID = "flowerseeds2aether";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
@@ -55,21 +51,26 @@ public class FlowerSeedsAether {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 
     public static final DeferredBlock<Block> PURPLE_FLOWER_SEED = registerBlock("purple_flower_seed",
-            () -> new CustomCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).sound(SoundType.CROP),
-                    SeedColour.PURPLE));
+            () -> new GenericFlowerCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).sound(SoundType.CROP), SeedColour.PURPLE));
 
     public static final DeferredBlock<Block> WHITE_FLOWER_SEED = registerBlock("white_flower_seed",
-            () -> new CustomCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).sound(SoundType.CROP),
-                    SeedColour.WHITE));
+            () -> new GenericFlowerCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).sound(SoundType.CROP), SeedColour.WHITE));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
+
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
         return toReturn;
     }
 
     private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {
+
         ITEMS.register(name, () -> new ItemNameBlockItem(block.get(), new Item.Properties()));
+    }
+
+    public static void register(IEventBus eventBus) {
+        BLOCKS.register(eventBus);
+        ITEMS.register(eventBus);
     }
 
     public FlowerSeedsAether(IEventBus modEventBus) {
@@ -91,7 +92,7 @@ public class FlowerSeedsAether {
 
     }
 
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+    @EventBusSubscriber(modid = MODID)
     public static class VillagerEventHandler {
         @SubscribeEvent
         public static void onVillagerTrades(VillagerTradesEvent pEvent) {
@@ -106,13 +107,13 @@ public class FlowerSeedsAether {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
             for (DeferredHolder<Block, ? extends Block> block : BLOCKS.getEntries()) {
 
-                CustomCropBlock item = (CustomCropBlock) block.get();
+                GenericFlowerCropBlock item = (GenericFlowerCropBlock) block.get();
                 event.register(item.getColour().get(), item.asItem());
 
             }
@@ -121,7 +122,7 @@ public class FlowerSeedsAether {
 
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeTabInit.FLOWER_SEEDS_TAB.getKey()) {
+        if (event.getTabKey() == FlowerSeeds2.MOD_TAB.getKey()) {
             for (DeferredHolder<Block, ? extends Block> block : BLOCKS.getEntries()) {
                 event.accept(block.get().asItem());
             }

@@ -1,0 +1,84 @@
+---- Minecraft Crash Report ----
+// But it works on my machine.
+
+Time: 2025-06-11 08:42:37
+Description: Mod loading failures have occurred; consult the issue messages for more details
+
+net.neoforged.neoforge.logging.CrashReportExtender$ModLoadingCrashException: Mod loading has failed
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Mod loading issue --
+Details:
+	Mod file: <No mod information provided>
+	Failure message: File /home/trhod17/Desktop/modding/flowerseeds2-1.21.1/FlowerSeedsWorkspace/modules/FlowerSeedsAether/build/resources/main is for Minecraft Forge or an older version of NeoForge, and cannot be loaded
+	Mod version: <No mod information provided>
+	Mod issues URL: <No issues URL found>
+	Exception message: <No associated exception found>
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.1
+	Minecraft Version ID: 1.21.1
+	Operating System: Linux (amd64) version 6.14.10-zen1-1-zen
+	Java Version: 21.0.7, Arch Linux
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Arch Linux
+	Memory: 203402240 bytes (193 MiB) / 662700032 bytes (632 MiB) up to 8187281408 bytes (7808 MiB)
+	CPUs: 24
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD Ryzen 9 7900X 12-Core Processor
+	Identifier: AuthenticAMD Family 25 Model 97 Stepping 2
+	Microarchitecture: Zen 3
+	Frequency (GHz): -0.00
+	Number of physical packages: 1
+	Number of physical CPUs: 12
+	Number of logical CPUs: 24
+	Graphics card #0 name: Navi 22 [Radeon RX 6700/6700 XT/6750 XT / 6800M/6850M XT]
+	Graphics card #0 vendor: Advanced Micro Devices, Inc. [AMD/ATI] (0x1002)
+	Graphics card #0 VRAM (MiB): 16640.00
+	Graphics card #0 deviceId: 0x73df
+	Graphics card #0 versionInfo: unknown
+	Graphics card #1 name: Raphael
+	Graphics card #1 vendor: Advanced Micro Devices, Inc. [AMD/ATI] (0x1002)
+	Graphics card #1 VRAM (MiB): 258.00
+	Graphics card #1 deviceId: 0x164e
+	Graphics card #1 versionInfo: unknown
+	Virtual memory max (MiB): 24621.60
+	Virtual memory used (MiB): 11369.89
+	Swap memory total (MiB): 9011.20
+	Swap memory used (MiB): 370.91
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 15540.78, total: 15610.41
+	Space in storage for workdir (MiB): available: 6894417.00, total: 15138375.00
+	JVM Flags: 0 total; 
+	ModLauncher: 11.0.4+main.d2e20e43
+	ModLauncher launch target: forgeclientdev
+	ModLauncher services: 
+		sponge-mixin-0.15.2+mixin.0.8.7.jar mixin PLUGINSERVICE 
+		loader-4.0.39.jar slf4jfixer PLUGINSERVICE 
+		loader-4.0.39.jar runtime_enum_extender PLUGINSERVICE 
+		at-modlauncher-10.0.1.jar accesstransformer PLUGINSERVICE 
+		loader-4.0.39.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-11.0.4.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-11.0.4.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		__fabric_loader_bootstrap@2.5.29+0.16.0+1.21
+		javafml@4.0
+		lowcodefml@4.0
+		minecraft@4.0
+	Mod List: 
+		accessories-neoforge-1.1.0-beta.34+1.21.1.jar     |Accessories                   |accessories                   |1.1.0-beta.34+1.21.1|Manifest: NOSIGNATURE
+		cumulus_menus-1.21.1-2.0.5-neoforge.jar           |Cumulus                       |cumulus_menus                 |2.0.5               |Manifest: NOSIGNATURE
+		flowerseeds2-1.21.1-3.2.1.jar                     |Flower Seeds 2                |flowerseeds2                  |3.2.1               |Manifest: NOSIGNATURE
+		fabric-api-base-0.4.42+d1308dedd1.jar             |Forgified Fabric API Base     |fabric_api_base               |0.4.42+d1308dedd1   |Manifest: NOSIGNATURE
+		fabric-networking-api-v1-4.2.2+a92978fd19.jar     |Forgified Fabric Networking AP|fabric_networking_api_v1      |4.2.2+a92978fd19    |Manifest: NOSIGNATURE
+		fabric-screen-api-v1-2.0.24+79a4c2b0d1.jar        |Forgified Fabric Screen API (v|fabric_screen_api_v1          |2.0.24+79a4c2b0d1   |Manifest: NOSIGNATURE
+		neoforge-21.1.169.jar                             |Minecraft                     |minecraft                     |1.21.1              |Manifest: NOSIGNATURE
+		neoforge-21.1.169.jar                             |NeoForge                      |neoforge                      |21.1.169            |Manifest: NOSIGNATURE
+		nitrogen_internals-1.21.1-1.1.23-neoforge.jar     |Nitrogen                      |nitrogen_internals            |1.1.23              |Manifest: NOSIGNATURE
+		owo-lib-532610-6416633.jar                        |oωo                           |owo                           |0.12.15.1-beta.3+1.2|Manifest: NOSIGNATURE
+		aether-1.21.1-1.5.8-neoforge.jar                  |The Aether                    |aether                        |1.5.8               |Manifest: NOSIGNATURE

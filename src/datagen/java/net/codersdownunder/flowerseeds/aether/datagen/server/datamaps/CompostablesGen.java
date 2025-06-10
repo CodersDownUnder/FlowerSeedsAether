@@ -18,7 +18,7 @@ public class CompostablesGen extends DataMapProvider {
     }
 
     @Override
-    protected void gather() {
+    protected void gather(HolderLookup.Provider provider) {
         var compostables = builder(NeoForgeDataMaps.COMPOSTABLES);
         // Always give entities that drop any item in the minecraft:fox_food tag 12 hearts
         for (DeferredHolder<Block, ? extends Block> block: FlowerSeedsAether.BLOCKS.getEntries()) {

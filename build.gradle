@@ -3,7 +3,8 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.173'
+    id 'net.neoforged.gradle.userdev' version '7.0.184'
+    id "com.hypherionmc.modutils.modpublisher" version "2.1.6"
 }
 
 version = mod_version
@@ -18,7 +19,7 @@ base {
 }
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 //minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
 //minecraft.accessTransformers.entry public net.minecraft.client.Minecraft textureManager # textureManager
@@ -76,11 +77,9 @@ runs {
         // workingDirectory project.file('run-data')
 
         // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(),
-        '--existing-mod', "flowerseeds", '--existing-mod', "aether"
-        modSources.add project.sourceSets.main
+        arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(),
+        '--existing-mod', "flowerseeds2", '--existing-mod', "aether"
         modSources.add project.sourceSets.datagen
-        modSources.add project(":modules:flowerseeds").sourceSets.main
     }
 }
 
@@ -97,6 +96,13 @@ configurations {
     gametestRuntimeClasspath.extendsFrom(runtimeClasspath)
 }
 
+repositories {
+    maven { url = "https://packages.aether-mod.net/The-Aether" }
+
+    maven { url 'https://maven.wispforest.io' }
+
+}
+
 dependencies {
     // Specify the version of Minecraft to use.
     // Depending on the plugin applied there are several options. We will assume you applied the userdev plugin as shown above.
@@ -106,31 +112,20 @@ dependencies {
     // For all intends and purposes: You can treat this dependency as if it is a normal library you would use.
     implementation "net.neoforged:neoforge:${neo_version}"
 
-    implementation project(":modules:flowerseeds")
+    implementation project(":modules:FlowerSeedsMain")
     datagenImplementation sourceSets.main.output
 
-    implementation "curse.maven:aether-255308:5297001"
-    // Example optional mod dependency with JEI
-    // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
-    // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
-    // compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
-    // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
-    // localRuntime "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+    implementation "com.aetherteam.aether:aether:1.21.1-1.5.8-neoforge"
 
-    // Example mod dependency using a mod jar from ./libs with a flat dir repository
-    // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
-    // The group id is ignored when searching -- in this case, it is "blank"
-    // implementation "blank:coolmod-${mc_version}:${coolmod_version}"
+    implementation "curse.maven:owo-lib-532610:6416633"
 
-    // Example mod dependency using a file as dependency
-    // implementation files("libs/coolmod-${mc_version}-${coolmod_version}.jar")
+//    implementation "io.wispforest:owo-lib-neoforge:0.12.15.1-beta.3+1.21"
+//    annotationProcessor "io.wispforest:owo-lib-neoforge:0.12.15.1-beta.3+1.21"
+//
+//    implementation "com.aetherteam.aether:aether:1.21.1-1.5.8-neoforge"
 
-    // Example project dependency using a sister or child project:
-    // implementation project(":myproject")
 
-    // For more info:
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -153,7 +148,7 @@ tasks.withType(ProcessResources).configureEach {
     ]
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/mods.toml']) {
+    filesMatching(['META-INF/neoforge.mods.toml']) {
         expand replaceProperties
     }
 }
@@ -190,3 +185,72 @@ idea {
 //    config("mixins.json")
 //    config("forge.mixins.json")
 //}
+
+publisher {
+    // Setup the required API keys. You only need to define the keys for
+    // the platforms you plan on uploading to
+    apiKeys {
+        // Modrinth Token
+        modrinth project.providers.gradleProperty("MODRINTH_TOKEN").get()
+        // Curseforge Token
+        curseforge project.providers.gradleProperty("CURSEFORGE_TOKEN").get()
+        // GitHub Token
+        //github System.getenv("GITHUB_TOKEN")
+    }
+
+    // Enable Debug mode. When enabled, no files will actually be uploaded
+    setDebug(false)
+
+    // Curseforge Project ID
+    setCurseID("1108481")
+
+    // Modrinth Project ID
+    setModrinthID("Wbz69eod")
+
+    // Type of release. beta, alpha or release
+    // You can also use VersionType.BETA, VersionType.ALPHA or VersionType.RELEASE
+    setVersionType("release")
+
+    // Changelog. This can be a file, string, OR, gist/github url
+    // For example: markdown.md, or "This is my changelog"
+    // Or: https://raw.githubusercontent.com/hypherionmc/changelogs/changelog.md
+    // Or https://gist.githubusercontent.com/hypherionmc/92f825d3c9337964cc77c9c8c9bf65e6/raw/ceeaaee5b98c688a23398864fe480b84796a1651/test_gist.md
+    setChangelog("https://gist.githubusercontent.com/Trhod17/56b408538b9d2692c03dd381727429e6/raw/6d65ab659699c956795156920ecb666db5d8997f/flowerseeds2aetherchangelog.md")
+
+    // Required for Modrinth/GitHub
+    setProjectVersion("${minecraft_version}-${project.version}")
+
+    // Fancy display name for the upload.
+    // Will default to the project version if not set
+    setDisplayName("[1.21.1] Flower Seeds 2 - Aether - ${project.version}")
+
+    // The supported game versions
+    setGameVersions("1.21.1")
+
+    // The modloaders your upload supports.
+    // This can also be an Enum from ModLoader,
+    // like setLoaders(ModLoader.FABRIC, ModLoader.FORGE)
+    setLoaders("neoforge")
+
+    // The new Curseforge Environment tag. Optional
+    // Valid values are "server", "client" or "both"
+    // You can also use CurseEnvironment.BOTH, or CurseEnvironment.SERVER or CurseEnvironment.CLIENT
+    setCurseEnvironment("both")
+
+    // Upload the release, but keep it "private" until you are ready
+    // Unreleased feature on CurseForge, working on Modrinth
+    setIsManualRelease(false)
+
+    // The file to be uploaded. This can be a file, task, or string.
+    // setArtifact("build/libs/mymod.jar")
+    // setArtifact(jar.getArchiveFile().get())
+    // If this is a task, the task specified will be executed before publishing
+    setArtifact(jar)
+
+
+    // Safety check to check if the artifact contains a valid mod metadata entry,
+    // which could possibly mean that the jar is empty
+    setDisableEmptyJarCheck(true)
+
+
+}

@@ -1,7 +1,7 @@
 package net.codersdownunder.flowerseeds.aether.datagen.server.tags;
 
 import net.codersdownunder.flowerseeds.aether.FlowerSeedsAether;
-import net.codersdownunder.flowerseeds.data.tags.FlowerSeedsItemTagsProvider;
+import net.codersdownunder.flowerseeds2.data.FlowerSeedsItemTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;

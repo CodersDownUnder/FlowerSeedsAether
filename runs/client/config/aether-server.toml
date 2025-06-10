@@ -1,4 +1,3 @@
-
 [Gameplay]
 	#Vanilla's beds will explode in the Aether
 	"Beds explode" = false
@@ -42,6 +41,8 @@
 	"Invisibility Cloak visibility timer" = 50
 	#Makes it so that only whitelisted users or anyone with permission level 4 can use the Sun Altar on a server
 	"Only whitelisted users access Sun Altars" = false
+	#Configures what dimensions are able to have their time changed by the Sun Altar
+	"Configure Sun Altar dimensions" = ["aether:the_aether"]
 
 [Modpack]
 	#Spawns the player in the Aether dimension; this is best enabled alongside other modpack configuration to avoid issues
@@ -56,4 +57,7 @@
 	"Sets portal destination dimension" = "aether:the_aether"
 	#Sets the ID of the dimension that the Aether Portal will return the player to
 	"Sets portal return dimension" = "minecraft:overworld"
-
+	#Sets the Aether's time cycle to be the same length as the Overworld's
+	"Overworld-length Aether time cycle" = false
+	#Syncs the Aether's time cycle to the Overworld's
+	"Syncs time cycles" = false
